@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "naXity",
+  title: "na𝕏ity",
   description: "AI Powered Smart City Platform",
 };
 

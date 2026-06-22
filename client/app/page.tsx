@@ -5,9 +5,11 @@ export default function Home() {
     <main className="flex">
       <Sidebar />
 
-      <div className="flex-1 p-10">
-        <h1 className="text-5xl font-bold">Welcome to naXity</h1>
-      </div>
+      <section className="flex-1 p-10">
+        <h1 className="text-6xl font-bold">
+          Welcome to naXity
+        </h1>
+      </section>
     </main>
   );
 }
