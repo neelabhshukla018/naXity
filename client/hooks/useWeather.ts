@@ -9,8 +9,12 @@ export const useWeather = () => {
 
   useEffect(() => {
     const loadWeather = async () => {
-      const data = await getWeather();
-      setWeather(data);
+      try {
+        const data = await getWeather();
+        setWeather(data);
+      } catch (error) {
+        console.error("Weather Error:", error);
+      }
     };
 
     loadWeather();
