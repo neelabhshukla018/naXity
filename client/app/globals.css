@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -9,10 +18,10 @@
 
   --accent: #06b6d4;
 
-  --glass-bg: rgba(255, 255, 255, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(226, 232, 240, 0.8);
 
-  --sidebar-bg: rgba(255, 255, 255, 0.7);
+  --sidebar-bg: #ffffff;
 
   --card-radius: 24px;
 }
@@ -26,10 +35,10 @@
 
   --accent: #22d3ee;
 
-  --glass-bg: rgba(15, 23, 42, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(15, 23, 42, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
 
-  --sidebar-bg: rgba(15, 23, 42, 0.7);
+  --sidebar-bg: #0f172a;
 }
 
 @theme inline {
@@ -44,6 +53,259 @@ html,
 body {
   background: var(--background);
   color: var(--foreground);
+
   font-family: var(--font-geist-sans);
-  transition: all 0.3s ease;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+/* =========================================
+   GLASS CARD
+========================================= */
+
+.glass-card {
+  background: var(--glass-bg);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid var(--glass-border);
+
+  border-radius: var(--card-radius);
+}
+
+/* =========================================
+   CLOUDS
+========================================= */
+
+@keyframes cloudSlow {
+  from {
+    transform: translateX(-150px);
+  }
+
+  to {
+    transform: translateX(900px);
+  }
+}
+
+@keyframes cloudMedium {
+  from {
+    transform: translateX(-250px);
+  }
+
+  to {
+    transform: translateX(900px);
+  }
+}
+
+@keyframes cloudFast {
+  from {
+    transform: translateX(-350px);
+  }
+
+  to {
+    transform: translateX(900px);
+  }
+}
+
+.animate-cloud-slow {
+  animation: cloudSlow 30s linear infinite;
+}
+
+.animate-cloud-medium {
+  animation: cloudMedium 22s linear infinite;
+}
+
+.animate-cloud-fast {
+  animation: cloudFast 16s linear infinite;
+}
+
+/* =========================================
+   SUN
+========================================= */
+
+@keyframes sunPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+.animate-sun {
+  animation: sunPulse 4s ease-in-out infinite;
+}
+
+/* =========================================
+   RAIN
+========================================= */
+
+.rain-drop {
+  position: absolute;
+
+  top: -20px;
+
+  width: 3px;
+  height: 22px;
+
+  border-radius: 999px;
+
+  background: rgba(37, 99, 235, 0.8);
+
+  animation: rainFall linear infinite;
+}
+
+@keyframes rainFall {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(160px);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   SNOW
+========================================= */
+
+.snowflake {
+  position: absolute;
+
+  top: -20px;
+
+  border-radius: 999px;
+
+  background: #38bdf8;
+
+  box-shadow:
+    0 0 8px rgba(56, 189, 248, 0.6);
+
+  animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+  from {
+    transform: translateY(-20px) translateX(0px);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(80px) translateX(10px);
+  }
+
+  to {
+    transform: translateY(160px) translateX(-10px);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   STARS
+========================================= */
+
+.star {
+  position: absolute;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.8);
+
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+/* =========================================
+   LIGHTNING
+========================================= */
+
+.lightning-flash {
+  position: absolute;
+  inset: 0;
+
+  animation: lightning 7s infinite;
+}
+
+@keyframes lightning {
+  0%,
+  94%,
+  100% {
+    background: transparent;
+  }
+
+  95% {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  96% {
+    background: transparent;
+  }
+
+  97% {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  98% {
+    background: transparent;
+  }
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
 }

@@ -10,57 +10,193 @@ export default function WeatherCard() {
     return (
       <div
         className="
-          rounded-2xl
+          relative
+          overflow-hidden
+
+          h-[150px]
+
+          rounded-3xl
+
+          bg-white
+          dark:bg-slate-900
+
           border
-          border-white/10
-          bg-white/20
-          dark:bg-white/5
-          backdrop-blur-xl
-          p-4
-          shadow-lg
+          border-slate-200
+          dark:border-slate-800
+
+          shadow-sm
+
           animate-pulse
         "
       >
-        <div className="flex items-center gap-3">
-          <div className="h-6 w-6 rounded-full bg-gray-300/40 dark:bg-white/10" />
-
-          <div className="h-5 w-16 rounded bg-gray-300/40 dark:bg-white/10" />
+        <div className="absolute inset-0 p-4">
+          <div className="h-8 w-20 rounded bg-slate-200 dark:bg-slate-700 mb-3" />
+          <div className="h-4 w-24 rounded bg-slate-200 dark:bg-slate-700 mb-2" />
+          <div className="h-3 w-16 rounded bg-slate-200 dark:bg-slate-700" />
         </div>
-
-        <div className="mt-3 h-4 w-32 rounded bg-gray-300/40 dark:bg-white/10" />
       </div>
     );
   }
 
+  let weatherTheme = {
+    bg: "",
+    text: "",
+    subText: "",
+  };
+
+  switch (weather.condition) {
+    case "Clear":
+      weatherTheme = {
+        bg: "from-amber-300 via-yellow-200 to-orange-200",
+        text: "text-amber-950",
+        subText: "text-amber-800",
+      };
+      break;
+
+    case "Clouds":
+      weatherTheme = {
+        bg: "from-slate-400 via-slate-200 to-slate-100",
+        text: "text-slate-900",
+        subText: "text-slate-700",
+      };
+      break;
+
+    case "Rain":
+    case "Drizzle":
+      weatherTheme = {
+        bg: "from-blue-600 via-sky-500 to-cyan-400",
+        text: "text-white",
+        subText: "text-white/80",
+      };
+      break;
+
+    case "Thunderstorm":
+      weatherTheme = {
+        bg: "from-slate-900 via-indigo-900 to-purple-900",
+        text: "text-white",
+        subText: "text-white/70",
+      };
+      break;
+
+    case "Snow":
+      weatherTheme = {
+        bg: "from-cyan-300 via-sky-100 to-white",
+        text: "text-slate-900",
+        subText: "text-slate-700",
+      };
+      break;
+
+    default:
+      weatherTheme = {
+        bg: "from-slate-900 via-blue-950 to-slate-950",
+        text: "text-white",
+        subText: "text-white/70",
+      };
+  }
+
   return (
     <div
-      className="
-        rounded-2xl
+      className={`
+        relative
+        overflow-hidden
+
+        h-[150px]
+
+        rounded-3xl
+
         border
-        border-white/10
-        bg-white/20
-        dark:bg-white/5
-        backdrop-blur-xl
-        p-4
+        border-white/20
+        dark:border-slate-700
+
+        bg-gradient-to-br
+        ${weatherTheme.bg}
+
         shadow-lg
+
+        hover:scale-[1.02]
+        hover:shadow-xl
+
         transition-all
         duration-300
-        hover:border-white/20
-      "
+      `}
     >
-      <div className="flex items-center gap-3">
-        <WeatherAnimation
-          condition={weather.condition}
-        />
-
-        <span className="text-lg font-semibold">
-          {weather.temperature}°C
-        </span>
+      {/* Weather Animation */}
+      <div className="absolute inset-0 z-0">
+        <WeatherAnimation condition={weather.condition} />
       </div>
 
-      <p className="mt-2 text-sm opacity-70">
-        {weather.city}, {weather.country}
-      </p>
+      {/* Glass Overlay */}
+      <div
+        className="
+          absolute
+          inset-0
+
+          bg-white/10
+          dark:bg-black/10
+
+          backdrop-blur-sm
+
+          z-10
+        "
+      />
+
+      {/* Content */}
+      <div
+        className="
+          relative
+          z-20
+
+          h-full
+
+          flex
+          flex-col
+          items-center
+          justify-center
+
+          text-center
+        "
+      >
+        <h2
+          className={`
+            text-5xl
+            font-bold
+            leading-none
+
+            ${weatherTheme.text}
+          `}
+        >
+          {weather.temperature}°
+        </h2>
+
+        <p
+          className={`
+            mt-2
+
+            text-lg
+            font-semibold
+
+            truncate
+            max-w-[90%]
+
+            ${weatherTheme.subText}
+          `}
+        >
+          {weather.city}
+        </p>
+
+        <p
+          className={`
+            mt-1
+
+            text-sm
+            font-medium
+
+            ${weatherTheme.subText}
+          `}
+        >
+          {weather.condition}
+        </p>
+      </div>
     </div>
   );
 }

@@ -46,3 +46,12 @@ server/.env
 # frontend
 client/node_modules
 client/.next
+
+
+.env
+.env.local
+.env.*
+
+server/.env
+.env
+.env.local

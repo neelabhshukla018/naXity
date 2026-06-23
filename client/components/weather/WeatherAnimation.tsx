@@ -1,19 +1,19 @@
 "use client";
 
-import SunnyAnimation from "@/components/weather/animations/SunnyAnimation";
-import RainAnimation from "@/components/weather/animations/RainAnimation";
-import CloudAnimation from "@/components/weather/animations/CloudAnimation";
-import StormAnimation from "@/components/weather/animations/StormAnimation";
-import SnowAnimation from "@/components/weather/animations/SnowAnimation";
-import NightAnimation from "@/components/weather/animations/NightAnimation";
+import SunnyAnimation from "./animations/SunnyAnimation";
+import CloudAnimation from "./animations/CloudAnimation";
+import RainAnimation from "./animations/RainAnimation";
+import StormAnimation from "./animations/StormAnimation";
+import SnowAnimation from "./animations/SnowAnimation";
+import NightAnimation from "./animations/NightAnimation";
 
-interface WeatherAnimationProps {
+interface Props {
   condition: string;
 }
 
 export default function WeatherAnimation({
   condition,
-}: WeatherAnimationProps) {
+}: Props) {
   switch (condition) {
     case "Clear":
       return <SunnyAnimation />;

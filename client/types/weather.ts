@@ -16,3 +16,14 @@ export interface WeatherData {
   latitude: number;
   longitude: number;
 }
+
+export interface ForecastDay {
+  date: string;
+
+  temperature: number;
+
+  condition: string;
+  description: string;
+
+  icon: string;
+}

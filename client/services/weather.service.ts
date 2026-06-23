@@ -1,22 +1,17 @@
 import { WeatherData } from "@/types/weather";
 
-export const getWeather = async (): Promise<WeatherData> => {
-  return {
-    city: "Prayagraj",
-    country: "India",
+const API_URL =
+  "http://localhost:5000/api/weather";
 
-    temperature: 31,
-    feelsLike: 34,
+export const getWeather = async (
+  lat: number,
+  lon: number
+): Promise<WeatherData> => {
+  const response = await fetch(
+    `${API_URL}?lat=${lat}&lon=${lon}`
+  );
 
-    humidity: 68,
-    windSpeed: 12,
+  const result = await response.json();
 
-    condition: "Clear",
-    description: "Sunny Sky",
-
-    icon: "☀️",
-
-    latitude: 25.4358,
-    longitude: 81.8463,
-  };
+  return result.data;
 };
