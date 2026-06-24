@@ -127,12 +127,13 @@ export default function QuickActions() {
               h-[120px]
             "
           >
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              className="object-contain"
-            />
+         <Image
+  src={item.image}
+  alt={item.title}
+  fill
+  sizes="(max-width: 768px) 80px, 110px"
+  className="object-contain"
+/>
           </div>
         </div>
       ))}

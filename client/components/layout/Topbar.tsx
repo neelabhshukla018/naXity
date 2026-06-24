@@ -1,12 +1,14 @@
 "use client";
 
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export default function Topbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const isLoggedIn = false; // Replace with JWT auth state
 
   useEffect(() => {
     setMounted(true);
@@ -17,12 +19,11 @@ export default function Topbar() {
   return (
     <header
       className="
+        h-20
         flex
-        justify-end
         items-center
-
+        justify-end
         px-10
-        pt-8
       "
     >
       <div className="flex items-center gap-4">
@@ -38,14 +39,13 @@ export default function Topbar() {
             backdrop-blur-xl
 
             rounded-full
-
             p-1
 
             shadow-lg
 
             border
-            border-white/50
-            dark:border-slate-700
+            border-slate-200
+            dark:border-white/10
           "
         >
           <button
@@ -97,24 +97,31 @@ export default function Topbar() {
           </button>
         </div>
 
-        {/* Avatar */}
-        <img
-          src="/actions/avtaar.png"
-          alt="Profile"
-          className="
-            h-14
-            w-14
+        {/* Profile Avatar After Login */}
+        {isLoggedIn && (
+          <button
+            className="
+              h-12
+              w-12
 
-            rounded-full
+              rounded-full
 
-            object-cover
+              overflow-hidden
 
-            border-2
-            border-white
+              border
+              border-slate-200
+              dark:border-white/10
 
-            shadow-md
-          "
-        />
+              shadow-lg
+            "
+          >
+            <img
+              src="/avatar.jpg"
+              alt="Profile"
+              className="h-full w-full object-cover"
+            />
+          </button>
+        )}
       </div>
     </header>
   );

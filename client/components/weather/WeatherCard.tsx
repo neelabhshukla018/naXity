@@ -12,27 +12,18 @@ export default function WeatherCard() {
         className="
           relative
           overflow-hidden
-
-          h-[150px]
-
+          h-32
           rounded-3xl
-
-          bg-white
-          dark:bg-slate-900
-
           border
           border-slate-200
-          dark:border-slate-800
-
+          bg-white
           shadow-sm
-
           animate-pulse
         "
       >
         <div className="absolute inset-0 p-4">
-          <div className="h-8 w-20 rounded bg-slate-200 dark:bg-slate-700 mb-3" />
-          <div className="h-4 w-24 rounded bg-slate-200 dark:bg-slate-700 mb-2" />
-          <div className="h-3 w-16 rounded bg-slate-200 dark:bg-slate-700" />
+          <div className="h-6 w-16 rounded bg-slate-200 mb-2" />
+          <div className="h-3 w-24 rounded bg-slate-200" />
         </div>
       </div>
     );
@@ -100,13 +91,12 @@ export default function WeatherCard() {
         relative
         overflow-hidden
 
-        h-[150px]
+        h-32
 
         rounded-3xl
 
         border
         border-white/20
-        dark:border-slate-700
 
         bg-gradient-to-br
         ${weatherTheme.bg}
@@ -122,23 +112,13 @@ export default function WeatherCard() {
     >
       {/* Weather Animation */}
       <div className="absolute inset-0 z-0">
-        <WeatherAnimation condition={weather.condition} />
+        <WeatherAnimation
+          condition={weather.condition}
+        />
       </div>
 
       {/* Glass Overlay */}
-      <div
-        className="
-          absolute
-          inset-0
-
-          bg-white/10
-          dark:bg-black/10
-
-          backdrop-blur-sm
-
-          z-10
-        "
-      />
+      <div className="absolute inset-0 bg-white/5 z-10" />
 
       {/* Content */}
       <div
@@ -158,7 +138,7 @@ export default function WeatherCard() {
       >
         <h2
           className={`
-            text-5xl
+            text-4xl
             font-bold
             leading-none
 
@@ -170,11 +150,9 @@ export default function WeatherCard() {
 
         <p
           className={`
-            mt-2
-
-            text-lg
+            mt-1
+            text-sm
             font-semibold
-
             truncate
             max-w-[90%]
 
@@ -187,8 +165,7 @@ export default function WeatherCard() {
         <p
           className={`
             mt-1
-
-            text-sm
+            text-xs
             font-medium
 
             ${weatherTheme.subText}
