@@ -1,150 +1,186 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import { useAuth } from "@/context/AuthContext";
+import ProfileHeader from "@/components/profile/ProfileHeader";
+import ProfileCompletion from "@/components/profile/ProfileCompletion";
+import ProfileStats from "@/components/profile/ProfileStats";
+import ProfileForm from "@/components/profile/ProfileForm";
 
 export default function ProfilePage() {
-  const { user, logout } = useAuth();
-  const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
-  const handleLogout = async () => {
-    await logout();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    bio: "",
+    address: "",
+    city: "",
+    state: "",
+    gender: "",
+    dateOfBirth: "",
+    imageUrl: "",
+  });
 
-    router.push("/");
-    router.refresh();
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/user/me",
+        {
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        setFormData({
+          ...data.user,
+          dateOfBirth: data.user.dateOfBirth
+            ? data.user.dateOfBirth.split("T")[0]
+            : "",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
-    <main
-      className="
-        min-h-screen
-        bg-[#F5F7FB]
-        dark:bg-[#07111F]
-        p-6
-      "
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSave = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:5000/api/user/update-profile",
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Profile updated successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-8">
+        <div className="h-48 rounded-3xl animate-pulse bg-slate-200 dark:bg-slate-800" />
+      </div>
+    );
+  }
+
+ return (
+  <div
+    className="
+    relative
+    min-h-screen
+    overflow-hidden
+    bg-[#F4F7FC]
+    dark:bg-[#07111F]
+    p-6
+    lg:p-8
+  "
+  >
+    {/* Canvas Background */}
+    <div className="absolute inset-0 overflow-hidden">
+      {/* Grid Pattern */}
       <div
         className="
-          max-w-4xl
-          mx-auto
+        absolute inset-0
+        bg-[linear-gradient(to_right,#64748b08_1px,transparent_1px),linear-gradient(to_bottom,#64748b08_1px,transparent_1px)]
+        bg-[size:60px_60px]
+      "
+      />
 
-          rounded-3xl
+      {/* Blue Orb */}
+      <div
+        className="
+        absolute
+        -top-32
+        -left-32
+        h-[500px]
+        w-[500px]
+        rounded-full
+        bg-blue-500/15
+        blur-[120px]
+      "
+      />
 
-          bg-white
-          dark:bg-[#0F172A]
+      {/* Purple Orb */}
+      <div
+        className="
+        absolute
+        top-1/2
+        -right-40
+        h-[500px]
+        w-[500px]
+        rounded-full
+        bg-purple-500/15
+        blur-[120px]
+      "
+      />
 
-          border
-          border-slate-200
-          dark:border-white/10
+      {/* Cyan Orb */}
+      <div
+        className="
+        absolute
+        bottom-0
+        left-1/3
+        h-[400px]
+        w-[400px]
+        rounded-full
+        bg-cyan-400/10
+        blur-[120px]
+      "
+      />
+    </div>
 
-          p-8
-        "
-      >
-        <div className="flex items-center gap-5">
-          {user?.imageUrl ? (
-            <img
-              src={user.imageUrl}
-              alt={user.name}
-              className="
-                w-24
-                h-24
-                rounded-full
-                object-cover
-              "
-            />
-          ) : (
-            <div
-              className="
-                w-24
-                h-24
-                rounded-full
+    {/* Main Content */}
+    <div className="relative z-10 space-y-6">
+      <ProfileHeader
+        formData={formData}
+        setFormData={setFormData}
+      />
 
-                bg-blue-600
-                text-white
+      <ProfileCompletion
+        formData={formData}
+      />
 
-                flex
-                items-center
-                justify-center
+      <ProfileStats />
 
-                text-3xl
-                font-bold
-              "
-            >
-              {user?.name?.charAt(0)}
-            </div>
-          )}
-
-          <div>
-            <h1 className="text-3xl font-bold">
-              {user?.name}
-            </h1>
-
-            <p className="text-slate-500">
-              {user?.email}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10 space-y-4">
-          <div>
-            <p className="text-sm text-slate-500">
-              City
-            </p>
-
-            <p className="font-medium">
-              {user?.city}
-            </p>
-          </div>
-
-          <div>
-            <p className="text-sm text-slate-500">
-              State
-            </p>
-
-            <p className="font-medium">
-              {user?.state}
-            </p>
-          </div>
-
-          <div>
-            <p className="text-sm text-slate-500">
-              Email
-            </p>
-
-            <p className="font-medium">
-              {user?.email}
-            </p>
-          </div>
-        </div>
-
-        <button
-          onClick={handleLogout}
-          className="
-            mt-10
-
-            flex
-            items-center
-            gap-2
-
-            px-5
-            py-3
-
-            rounded-2xl
-
-            bg-red-500/10
-            text-red-500
-
-            hover:bg-red-500/20
-
-            transition-all
-          "
-        >
-          <LogOut size={18} />
-          Logout
-        </button>
-      </div>
-    </main>
-  );
+      <ProfileForm
+        formData={formData}
+        handleChange={handleChange}
+        handleSave={handleSave}
+      />
+    </div>
+  </div>
+);
 }

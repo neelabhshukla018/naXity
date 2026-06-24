@@ -1,4 +1,7 @@
+// src/middleware/auth.middleware.js
+
 const jwt = require("jsonwebtoken");
+const prisma = require("../config/prisma");
 
 const protect = async (req, res, next) => {
   try {
@@ -7,7 +10,7 @@ const protect = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: "Unauthorized",
+        message: "Unauthorized. Please login.",
       });
     }
 
@@ -16,15 +19,32 @@ const protect = async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    req.user = decoded;
+    const user = await prisma.user.findUnique({
+      where: {
+        id: decoded.id,
+      },
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    req.user = user;
 
     next();
   } catch (error) {
+    console.error("Auth Middleware Error:", error);
+
     return res.status(401).json({
       success: false,
-      message: "Invalid Token",
+      message: "Invalid or expired token",
     });
   }
 };
 
-module.exports = { protect };
+module.exports = {
+  protect,
+};
