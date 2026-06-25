@@ -184,21 +184,46 @@ useEffect(() => {
     };
 
   return (
-    <div className="min-h-screen bg-[#020817] p-8">
+    <div className="min-h-screen bg-slate-100 dark:bg-[#020817] transition-colors duration-300 p-8">
 
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl">
-
+<div
+  className="
+    mx-auto
+    max-w-7xl
+    overflow-hidden
+    rounded-3xl
+    border
+    border-slate-200
+    bg-white
+    shadow-2xl
+    transition-colors
+    duration-300
+    dark:border-white/10
+    dark:bg-slate-900
+  "
+>
         {/* Header */}
 
-        <div className="flex items-center justify-between border-b border-white/10 px-8 py-6">
+       <div
+  className="
+    flex
+    items-center
+    justify-between
+    border-b
+    border-slate-200
+    px-8
+    py-6
+    dark:border-white/10
+  "
+>
 
           <div>
 
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white">
               Edit Profile Photo
             </h1>
 
-            <p className="mt-1 text-gray-400">
+            <p className="mt-1 text-slate-600 dark:text-slate-400">
               Crop, rotate and zoom your
               avatar.
             </p>
@@ -207,9 +232,15 @@ useEffect(() => {
 
           <button
             onClick={onCancel}
-            className="rounded-xl p-2 hover:bg-white/10"
+            className="
+rounded-xl
+p-2
+transition
+hover:bg-slate-100
+dark:hover:bg-white/10
+"
           >
-            <X className="text-white" />
+            <X className="text-slate-700 dark:text-slate-900 dark:text-white" />
           </button>
 
         </div>
@@ -217,7 +248,14 @@ useEffect(() => {
         {/* Main Layout */}
 
         <div className="flex h-[720px]">          {/* Left - Crop Area */}
-          <div className="relative flex-1 bg-[#0f172a]">
+          <div className="
+relative
+flex-1
+bg-slate-200
+transition-colors
+duration-300
+dark:bg-[#0f172a]
+">
 
             <Cropper
               image={image}
@@ -240,22 +278,26 @@ useEffect(() => {
 
           {/* Right - Controls */}
           <div
-            className="
-              w-[360px]
-              border-l
-              border-white/10
-              bg-slate-900
-              p-8
-              flex
-              flex-col
-            "
+         className="
+w-[360px]
+border-l
+border-slate-200
+bg-white
+p-8
+flex
+flex-col
+transition-colors
+duration-300
+dark:border-white/10
+dark:bg-slate-900
+"
           >
 
-            <h2 className="text-xl font-semibold text-white">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white">
               Image Controls
             </h2>
 
-            <p className="mt-2 text-sm text-gray-400">
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
               Adjust your profile picture
               before uploading.
             </p>
@@ -410,13 +452,18 @@ useEffect(() => {
                       flex-1
                       rounded-xl
                       border
-                      border-white/10
+                 border-slate-300
+text-slate-900
+hover:bg-slate-100
+dark:border-white/10
+dark:text-white
+dark:hover:bg-white/10
                       px-5
                       py-3
                       font-medium
-                      text-white
+                      
                       transition
-                      hover:bg-white/10
+                      
                       disabled:opacity-50
                     "
                   >
