@@ -218,8 +218,76 @@ const updateProfile = async (req, res) => {
   }
 };
 
+
+// =======================
+// Delete Avatar
+// =======================
+const deleteAvatar = async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Delete from Cloudinary
+    if (user.imagePublicId) {
+      await cloudinary.uploader.destroy(
+        user.imagePublicId
+      );
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: req.user.id,
+      },
+      data: {
+        imageUrl: null,
+        imagePublicId: null,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+
+        imageUrl: true,
+        imagePublicId: true,
+
+        city: true,
+        state: true,
+
+        role: true,
+        isVerified: true,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Avatar deleted successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("DELETE AVATAR ERROR =>", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+
 module.exports = {
   uploadAvatar,
+  deleteAvatar,
   getMe,
   updateProfile,
 };

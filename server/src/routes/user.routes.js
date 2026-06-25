@@ -8,6 +8,7 @@ const {
   uploadAvatar,
   getMe,
   updateProfile,
+  deleteAvatar,
 } = require("../controllers/user.controller");
 
 // Upload Avatar
@@ -30,6 +31,13 @@ router.put(
   "/update-profile",
   protect,
   updateProfile
+);
+
+// Delete Avatar
+router.delete(
+  "/delete-avatar",
+  protect,
+  deleteAvatar
 );
 
 module.exports = router;

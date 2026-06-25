@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+import AnimatedBackground from "@/components/backgrounds/AnimatedBackground";
+
 import ProfileHeader from "@/components/profile/ProfileHeader";
 import ProfileCompletion from "@/components/profile/ProfileCompletion";
-import ProfileStats from "@/components/profile/ProfileStats";
 import ProfileForm from "@/components/profile/ProfileForm";
 
 export default function ProfilePage() {
@@ -96,74 +97,24 @@ export default function ProfilePage() {
     );
   }
 
- return (
+return (
   <div
     className="
-    relative
-    min-h-screen
-    overflow-hidden
-    bg-[#F4F7FC]
-    dark:bg-[#07111F]
-    p-6
-    lg:p-8
-  "
+      relative
+      min-h-screen
+      overflow-hidden
+      bg-[#F4F7FC]
+      dark:bg-[#07111F]
+      p-6
+      lg:p-8
+    "
   >
-    {/* Canvas Background */}
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Grid Pattern */}
-      <div
-        className="
-        absolute inset-0
-        bg-[linear-gradient(to_right,#64748b08_1px,transparent_1px),linear-gradient(to_bottom,#64748b08_1px,transparent_1px)]
-        bg-[size:60px_60px]
-      "
-      />
+    {/* Animated Smart City Background */}
+    <AnimatedBackground />
 
-      {/* Blue Orb */}
-      <div
-        className="
-        absolute
-        -top-32
-        -left-32
-        h-[500px]
-        w-[500px]
-        rounded-full
-        bg-blue-500/15
-        blur-[120px]
-      "
-      />
+    {/* Content */}
+    <div className="relative z-10 mx-auto max-w-7xl space-y-8">
 
-      {/* Purple Orb */}
-      <div
-        className="
-        absolute
-        top-1/2
-        -right-40
-        h-[500px]
-        w-[500px]
-        rounded-full
-        bg-purple-500/15
-        blur-[120px]
-      "
-      />
-
-      {/* Cyan Orb */}
-      <div
-        className="
-        absolute
-        bottom-0
-        left-1/3
-        h-[400px]
-        w-[400px]
-        rounded-full
-        bg-cyan-400/10
-        blur-[120px]
-      "
-      />
-    </div>
-
-    {/* Main Content */}
-    <div className="relative z-10 space-y-6">
       <ProfileHeader
         formData={formData}
         setFormData={setFormData}
@@ -173,13 +124,15 @@ export default function ProfilePage() {
         formData={formData}
       />
 
-      <ProfileStats />
+      {/* Uncomment after redesign */}
+      {/* <ProfileStats /> */}
 
       <ProfileForm
         formData={formData}
         handleChange={handleChange}
         handleSave={handleSave}
       />
+
     </div>
   </div>
 );
