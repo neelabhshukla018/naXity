@@ -66,20 +66,21 @@ export default function ProfileForm({
   handleChange,
   handleSave,
 }: Props) {
-  return (
-    <div
-      className="
-        rounded-3xl
-        bg-white/80
-        dark:bg-[#0B1220]/80
-        backdrop-blur-xl
-        shadow-xl
-        border
-        border-white/20
-        dark:border-slate-800
-        p-8
-      "
-    >
+return (
+  <div
+    id="profile-form"
+    className="
+      rounded-3xl
+      bg-white/80
+      dark:bg-[#0B1220]/80
+      backdrop-blur-xl
+      shadow-xl
+      border
+      border-white/20
+      dark:border-slate-800
+      p-8
+    "
+  >
       <h2 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
         Personal Information
       </h2>

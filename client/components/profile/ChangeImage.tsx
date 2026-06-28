@@ -46,7 +46,7 @@ export default function ChangeImage({
 
     reader.onload = () => {
       setImage(reader.result as string);
-      router.push("/profile/image-editor");
+     router.replace("/profile/image-editor");
     };
 
     reader.readAsDataURL(file);

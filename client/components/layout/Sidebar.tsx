@@ -175,148 +175,168 @@ export default function Sidebar() {
         >
           <WeatherCard />
         </div>
+{loading ? (
+  <div
+    className="
+      h-16
+      rounded-2xl
+      animate-pulse
 
-        {loading ? (
+      bg-blue-50
+      dark:bg-[#16233D]
+
+      border
+      border-blue-100
+      dark:border-blue-900/40
+    "
+  />
+) : isLoggedIn ? (
+  <Link href="/profile">
+    <div
+      className="
+        cursor-pointer
+
+        p-3
+
+        rounded-2xl
+
+        bg-blue-200
+        dark:bg-[#16233D]/70
+
+        backdrop-blur-xl
+
+        border
+        border-blue-100
+        dark:border-blue-900/40
+
+        shadow-lg
+
+        transition-all
+        duration-300
+
+        hover:bg-blue-300
+        dark:hover:bg-[#1B2C4A]
+
+        hover:shadow-xl
+      "
+    >
+      <div className="flex items-center gap-3">
+        {user?.imageUrl ? (
+          <img
+            src={user.imageUrl}
+            alt={user.name}
+            className="
+              h-11
+              w-11
+              rounded-full
+              object-cover
+            "
+          />
+        ) : (
           <div
             className="
-              h-16
-              rounded-2xl
-
-              animate-pulse
-
-              bg-slate-200
-              dark:bg-white/10
-            "
-          />        ) : isLoggedIn ? (
-          <Link href="/profile">
-            <div
-              className="
-                p-3
-
-                rounded-2xl
-
-                bg-white/30
-                dark:bg-white/5
-
-                backdrop-blur-xl
-
-                border
-                border-white/20
-
-                hover:bg-white/40
-                dark:hover:bg-white/10
-
-                shadow-lg
-
-                transition-all
-                duration-300
-
-                cursor-pointer
-              "
-            >
-              <div className="flex items-center gap-3">
-                {user?.imageUrl ? (
-                  <img
-                    src={user.imageUrl}
-                    alt={user.name}
-                    className="
-                      w-11
-                      h-11
-                      rounded-full
-                      object-cover
-                    "
-                  />
-                ) : (
-                  <div
-                    className="
-                      w-11
-                      h-11
-
-                      rounded-full
-
-                      bg-gradient-to-br
-                      from-blue-500
-                      to-cyan-400
-
-                      text-white
-
-                      flex
-                      items-center
-                      justify-center
-
-                      font-semibold
-                    "
-                  >
-                    {user?.name?.charAt(0)?.toUpperCase() || "U"}
-                  </div>
-                )}
-
-                <div className="min-w-0">
-                  <p className="font-semibold truncate">
-                    {user?.name}
-                  </p>
-
-                  <p
-                    className="
-                      text-xs
-                      text-slate-500
-                      truncate
-                    "
-                  >
-                    {user?.city}, {user?.state}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>        ) : (
-          <Link
-            href="/auth"
-            className="
-              group
-
-              w-full
-
               flex
+              h-11
+              w-11
               items-center
               justify-center
-              gap-2
 
-              py-3
+              rounded-full
 
-              rounded-2xl
+              bg-gradient-to-br
+              from-blue-500
+              to-cyan-400
 
-              bg-white/30
-              dark:bg-white/5
-
-              backdrop-blur-xl
-
-              border
-              border-white/20
-
-              text-slate-700
-              dark:text-slate-200
-
-              hover:bg-white/40
-              dark:hover:bg-white/10
-
-              transition-all
-              duration-300
+              font-semibold
+              text-white
             "
           >
-            <span className="font-medium">
-              Get Started
-            </span>
-
-            <ArrowRight
-              size={18}
-              className="
-                transition-transform
-                duration-300
-                group-hover:translate-x-1
-              "
-            />
-          </Link>
+            {user?.name?.charAt(0)?.toUpperCase() || "U"}
+          </div>
         )}
+
+        <div className="min-w-0">
+          <p
+            className="
+              truncate
+              font-semibold
+
+              text-slate-800
+              dark:text-white
+            "
+          >
+            {user?.name}
+          </p>
+
+          <p
+            className="
+              truncate
+              text-xs
+
+              text-slate-500
+              dark:text-slate-400
+            "
+          >
+            {user?.city}, {user?.state}
+          </p>
+        </div>
+      </div>
+    </div>
+  </Link>
+) : (
+  <Link
+    href="/auth"
+    className="
+      group
+
+      flex
+      w-full
+
+      items-center
+      justify-center
+      gap-2
+
+      py-3
+
+      rounded-2xl
+
+      bg-blue-50/80
+      dark:bg-[#16233D]/70
+
+      backdrop-blur-xl
+
+      border
+      border-blue-100
+      dark:border-blue-900/40
+
+      text-slate-800
+      dark:text-slate-200
+
+      shadow-lg
+
+      transition-all
+      duration-300
+
+      hover:bg-blue-100/80
+      dark:hover:bg-[#1B2C4A]
+
+      hover:shadow-xl
+    "
+  >
+    <span className="font-medium">
+      Get Started
+    </span>
+
+    <ArrowRight
+      size={18}
+      className="
+        transition-transform
+        duration-300
+        group-hover:translate-x-1
+      "
+    />
+  </Link>
+)}
       </div>
     </aside>
   );
