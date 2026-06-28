@@ -6,21 +6,34 @@ const getWeather = async (req, res) => {
   try {
     const { lat, lon } = req.query;
 
-    const weather = await getCurrentWeather(
-      lat,
-      lon
-    );
+    if (!lat || !lon) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Latitude and longitude are required.",
+      });
+    }
 
-    res.status(200).json({
+    const weather =
+      await getCurrentWeather(lat, lon);
+
+    return res.status(200).json({
       success: true,
+      message:
+        "Weather fetched successfully.",
       data: weather,
     });
   } catch (error) {
-    console.error(error);
+    console.error(
+      "Weather Controller Error:",
+      error.message
+    );
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
-      message: "Failed to fetch weather",
+      message:
+        error.message ||
+        "Failed to fetch weather.",
     });
   }
 };

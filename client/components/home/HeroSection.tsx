@@ -1,10 +1,14 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
+
 import CityBackground from "./CityBackground";
 import SearchBar from "./SearchBar";
 import QuickActions from "./QuickActions";
 
 export default function HeroSection() {
+  const { user, isLoggedIn } = useAuth();
+
   return (
     <section
       className="
@@ -50,7 +54,11 @@ export default function HeroSection() {
             font-medium
           "
         >
-          Good Morning, Neelabh 👋
+          Good Morning,{" "}
+          {isLoggedIn
+            ? user?.name?.split(" ")[0]
+            : "Guest"}{" "}
+          👋
         </p>
 
         <h1

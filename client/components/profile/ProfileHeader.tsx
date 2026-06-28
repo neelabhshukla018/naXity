@@ -83,30 +83,31 @@ export default function ProfileHeader({
           relative
 
           overflow-hidden
-             h-[540px] 
+          h-[540px] 
 
-              w-[100%]
+          w-[100%]
           rounded-[36px]
 
           border
           border-slate-200/80
           dark:border-slate-800
 
-          bg-gradient-to-br
-          from-white
-          via-slate-50
-          to-blue-50
+        bg-gradient-to-br
+        from-white
+        via-slate-50
+        to-blue-50
 
-          dark:from-[#07111F]
-          dark:via-[#0B1728]
-          dark:to-[#12243D]
+        dark:from-[#07111F]
+        dark:via-[#0B1728]
+        dark:to-[#12243D]
 
           shadow-[0_30px_80px_rgba(15,23,42,.08)]
 
           transition-all
           duration-500
         "
-      >        {/* Background */}
+      >       
+       {/* Background */}
 
         <div className="absolute inset-0 overflow-hidden">
 
@@ -118,11 +119,11 @@ export default function ProfileHeader({
             className="
               absolute
 
-              right-0
+              right-2
               top-0
 
               h-full
-              w-[90%]
+              w-[100%]
 
               object-cover
               object-right
@@ -201,9 +202,9 @@ export default function ProfileHeader({
         <div
           className="
             relative
-            z-10
+            z-6
 
-            p-8
+            p-6
 
             lg:p-6
           "
@@ -213,7 +214,7 @@ export default function ProfileHeader({
             className="
               grid
 
-              gap-0
+              gap-3
 
               lg:grid-cols-[230px_1fr_340px]
             "
@@ -246,7 +247,7 @@ export default function ProfileHeader({
 
             <div className="flex flex-col justify-center">
 
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-wrap items-center gap-2">
 
                 <h1
                   className="
@@ -274,7 +275,7 @@ export default function ProfileHeader({
                     bg-blue-100
                     dark:bg-blue-900/30
 
-                    px-4
+                    px-5
                     py-2
 
                     text-sm
@@ -361,7 +362,8 @@ export default function ProfileHeader({
 
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3">                {/* Profile Badges */}
+              <div className="mt-8 flex flex-wrap gap-3">              
+                  {/* Profile Badges */}
 
                 <div
                   className="
@@ -595,7 +597,9 @@ export default function ProfileHeader({
 
               </div>
 
-            </div>            {/* Smart City Overview */}
+            </div>           
+            
+             {/* Smart City Overview */}
 
             <div
               className="

@@ -9,29 +9,93 @@ import NightAnimation from "./animations/NightAnimation";
 
 interface Props {
   condition: string;
+  icon: string;
 }
 
 export default function WeatherAnimation({
   condition,
+  icon,
 }: Props) {
-  switch (condition) {
-    case "Clear":
+  const isNight = icon.endsWith("n");
+
+  switch (icon) {
+    // Clear Sky
+    case "01d":
       return <SunnyAnimation />;
 
-    case "Clouds":
+    case "01n":
+      return <NightAnimation />;
+
+    // Few / Scattered / Broken Clouds
+    case "02d":
+    case "03d":
+    case "04d":
       return <CloudAnimation />;
 
-    case "Rain":
-    case "Drizzle":
+    case "02n":
+    case "03n":
+    case "04n":
+      return <NightAnimation />;
+
+    // Rain / Drizzle
+    case "09d":
+    case "09n":
+    case "10d":
+    case "10n":
       return <RainAnimation />;
 
-    case "Thunderstorm":
+    // Thunderstorm
+    case "11d":
+    case "11n":
       return <StormAnimation />;
 
-    case "Snow":
+    // Snow
+    case "13d":
+    case "13n":
       return <SnowAnimation />;
 
+    // Mist / Fog / Haze
+    case "50d":
+    case "50n":
+      return isNight ? (
+        <NightAnimation />
+      ) : (
+        <CloudAnimation />
+      );
+
     default:
-      return <NightAnimation />;
+      // Fallback
+      switch (condition) {
+        case "Clear":
+          return isNight ? (
+            <NightAnimation />
+          ) : (
+            <SunnyAnimation />
+          );
+
+        case "Clouds":
+          return isNight ? (
+            <NightAnimation />
+          ) : (
+            <CloudAnimation />
+          );
+
+        case "Rain":
+        case "Drizzle":
+          return <RainAnimation />;
+
+        case "Thunderstorm":
+          return <StormAnimation />;
+
+        case "Snow":
+          return <SnowAnimation />;
+
+        default:
+          return isNight ? (
+            <NightAnimation />
+          ) : (
+            <CloudAnimation />
+          );
+      }
   }
 }

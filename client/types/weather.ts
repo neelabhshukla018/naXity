@@ -1,20 +1,34 @@
 export interface WeatherData {
-  city: string;
-  country: string;
+  location: {
+    locality: string;
+    city: string;
+    state: string;
+    country: string;
+  };
 
-  temperature: number;
-  feelsLike: number;
+  weather: {
+    temperature: number;
+    feelsLike: number;
 
-  humidity: number;
-  windSpeed: number;
+    humidity: number;
+    pressure: number;
 
-  condition: string;
-  description: string;
+    windSpeed: number;
+    visibility: number;
 
-  icon: string;
+    condition: string;
+    description: string;
 
-  latitude: number;
-  longitude: number;
+    icon: string;
+
+    sunrise: number;
+    sunset: number;
+  };
+
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
 }
 
 export interface ForecastDay {

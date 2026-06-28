@@ -177,8 +177,8 @@ export default function AvatarUploader({
                     top-14
                     left-1/2
                     -translate-x-1/2
-                    z-50
-                    w-64
+                    z-40
+                    w-54
                     overflow-hidden
                     rounded-2xl
                     border

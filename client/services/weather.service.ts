@@ -7,11 +7,33 @@ export const getWeather = async (
   lat: number,
   lon: number
 ): Promise<WeatherData> => {
-  const response = await fetch(
-    `${API_URL}?lat=${lat}&lon=${lon}`
-  );
+  try {
+    const response = await fetch(
+      `${API_URL}?lat=${lat}&lon=${lon}`
+    );
 
-  const result = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        "Failed to fetch weather."
+      );
+    }
 
-  return result.data;
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(
+        result.message ||
+          "Unable to fetch weather."
+      );
+    }
+
+    return result.data;
+  } catch (error) {
+    console.error(
+      "Weather Service Error:",
+      error
+    );
+
+    throw error;
+  }
 };
