@@ -1,6 +1,7 @@
 import Sidebar from "@/components/layout/Sidebar";
 import Topbar from "@/components/layout/Topbar";
 import HeroSection from "@/components/home/HeroSection";
+import Map from "@/components/map/Map";
 
 export default function Home() {
   return (
@@ -16,7 +17,10 @@ export default function Home() {
           <section
             className="
               mt-6
-              h-[500px]
+              h-[650px]
+              w-full
+
+              overflow-hidden
 
               rounded-[32px]
 
@@ -33,22 +37,7 @@ export default function Home() {
               duration-300
             "
           >
-            <div
-              className="
-                h-full
-                flex
-                items-center
-                justify-center
-
-                text-slate-400
-                dark:text-slate-500
-
-                text-lg
-                font-medium
-              "
-            >
-              Interactive Map Coming Soon
-            </div>
+            <Map />
           </section>
         </div>
       </section>
