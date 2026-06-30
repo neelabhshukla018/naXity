@@ -12,11 +12,29 @@ export interface CurrentLocation {
 }
 
 export interface Address {
+  // Full formatted address
   name?: string;
+
+  // Locality / Village / Area
+  locality?: string;
+
+  // Street
   street?: string;
+
+  // City / Town
   city?: string;
+
+  // District
+  district?: string;
+
+  // State
   state?: string;
+
+  // Country
   country?: string;
+
+  // Postal Code
   postalCode?: string;
+
   coordinates: Coordinates;
 }

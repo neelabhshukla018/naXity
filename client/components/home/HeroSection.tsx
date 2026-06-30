@@ -9,6 +9,17 @@ import QuickActions from "./QuickActions";
 export default function HeroSection() {
   const { user, isLoggedIn } = useAuth();
 
+  const hour = new Date().getHours();
+
+  const greeting =
+    hour >= 5 && hour < 12
+      ? "Good Morning"
+      : hour >= 12 && hour < 17
+      ? "Good Afternoon"
+      : hour >= 17 && hour < 21
+      ? "Good Evening"
+      : "Good Night";
+
   return (
     <section
       className="
@@ -54,7 +65,7 @@ export default function HeroSection() {
             font-medium
           "
         >
-          Good Morning,{" "}
+          {greeting},{" "}
           {isLoggedIn
             ? user?.name?.split(" ")[0]
             : "Guest"}{" "}

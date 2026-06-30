@@ -1,71 +1,53 @@
 const axios = require("axios");
 
+const WEATHER_API = "https://api.openweathermap.org/data/2.5/weather";
+const GEO_API =
+  "https://api.openweathermap.org/geo/1.0/reverse";
+
 const getCurrentWeather = async (lat, lon) => {
   try {
-    // Fetch weather and location data in parallel
-    const [weatherResponse, geoResponse] = await Promise.all([
-      axios.get(
-        "https://api.openweathermap.org/data/2.5/weather",
-        {
+    const [weatherResponse, geoResponse] =
+      await Promise.all([
+        axios.get(WEATHER_API, {
           params: {
             lat,
             lon,
-            appid: process.env.OPENWEATHER_API_KEY,
             units: "metric",
+            appid:
+              process.env.OPENWEATHER_API_KEY,
           },
-        }
-      ),
+        }),
 
-      axios.get(
-        "https://nominatim.openstreetmap.org/reverse",
-        {
+        axios.get(GEO_API, {
           params: {
-            format: "jsonv2",
             lat,
             lon,
-            zoom: 18,
-            addressdetails: 1,
+            limit: 1,
+            appid:
+              process.env.OPENWEATHER_API_KEY,
           },
-          headers: {
-            "User-Agent": "naXity/1.0 (https://naxity.com)",
-          },
-        }
-      ),
-    ]);
+        }),
+      ]);
 
     const weather = weatherResponse.data;
-    const address =
-      geoResponse.data?.address || {};
-
-    // Get the most specific locality available
-    const locality =
-      address.village ||
-      address.hamlet ||
-      address.suburb ||
-      address.neighbourhood ||
-      address.quarter ||
-      address.city_district ||
-      address.town ||
-      address.city ||
-      weather.name;
-
-    // District / City
-    const city =
-      address.city ||
-      address.town ||
-      address.county ||
-      weather.name;
-
-    // State
-    const state = address.state || "";
+    const geo = geoResponse.data[0] || {};
 
     return {
       location: {
-        locality,
-        city,
-        state,
+        locality:
+          geo.local_names?.en ||
+          geo.name ||
+          weather.name,
+
+        city:
+          geo.name ||
+          weather.name,
+
+        state:
+          geo.state || "",
+
         country:
-          address.country ||
+          geo.country ||
           weather.sys.country,
       },
 
@@ -84,8 +66,9 @@ const getCurrentWeather = async (lat, lon) => {
         pressure:
           weather.main.pressure,
 
-        windSpeed:
-          weather.wind.speed,
+        windSpeed: Math.round(
+          weather.wind.speed * 3.6
+        ),
 
         visibility:
           weather.visibility / 1000,

@@ -28,7 +28,8 @@ export default function WeatherCard() {
   let sub = "";
 
   if (isNight) {
-    bg = "from-slate-950 via-slate-900 to-indigo-950";
+    bg =
+      "from-slate-950 via-slate-900 to-indigo-950";
     text = "text-white";
     sub = "text-slate-300";
   } else {
